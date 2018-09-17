@@ -5,6 +5,21 @@ import KittyCoreABI from 'contracts/KittyCoreABI.json';
 import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
 
 class Browser extends Component {
+
+  constructor(props, context) {
+      super(props);
+      this.contracts = context.drizzle.contracts;
+
+      this.state = {
+        kitty: {
+          genes: '626837621154801616088980922659877168609154386318304496692374110716999053',
+          generation: 0,
+          birthTime: '2017-11-23T06:19:59.000Z'
+        },
+        kittyId: 1,
+        kittyError: ''
+      }
+    }
   
   componentDidMount() {
     const web3 = new Web3(window.web3.currentProvider);
