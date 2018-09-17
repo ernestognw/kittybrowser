@@ -39,6 +39,31 @@ class Browser extends Component {
     });
   }
 
+  getKitty = id => {
+    return this.context.drizzle.contracts.CryptoKitties.methods.getKitty(id).call();
+  }
+
+  setKitty = id => {
+    // Check id
+    id = this.isValid(id);
+    this.getKitty(id).then(kitty => {
+      this.setState({
+        kitty: kitty,
+        kittyId: id,
+        kittyAlert: ''
+      })
+    }).catch(error => {
+      console.log('Kitty Not Found', error);
+      this.setState({
+        kittyAlert: 'Kitty not Found'
+      })
+    });
+  }
+
+  isValid = number => {
+    return isNaN(number) ? 1 : number;
+  }
+
   render() {
     return (
       <div className="browser">
