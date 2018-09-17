@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { object } from 'prop-types';
 import Web3 from 'web3';
-import KittyCoreABI from 'contracts/KittyCoreABI.json';
+import KittyCoreABI from '../contracts/KittyCoreABI.json';
 import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
+import InputForm from './InputForm';
+import Kitty from './Kitty';
 
 class Browser extends Component {
 
@@ -65,15 +67,24 @@ class Browser extends Component {
   }
 
   render() {
+    let alert;
+    alert = <div className={(this.state.kittyAlert ? 'alert alert-danger' : '')}>{this.state.kittyAlert}</div>;
+
     return (
       <div className="browser">
-        <h1>
-          Kitty Browser
-        </h1>
-
-        {/* Input to type in the kitty ID here */}
-
-        {/* Display Kitty info here */}
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbar">
+            <a className="navbar-brand" href="#">Kitty Browser</a>
+            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">  
+            </ul>
+            <InputForm update={this.setKitty} />
+          </div>
+        </nav>
+        {alert}
+        <Kitty kitty={this.state.kitty} kittyId={this.state.kittyId} />
       </div>
     );
   }
